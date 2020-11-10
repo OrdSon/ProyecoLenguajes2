@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalizadorLexico.cs" />
+    <Compile Include="AnalizadorSintactico.cs" />
     <Compile Include="Pintor.cs" />
     <Compile Include="Component1.cs">
       <SubType>Component</SubType>

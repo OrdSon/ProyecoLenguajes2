@@ -85,10 +85,10 @@ namespace ProyectoLenguaje
                     case "SI":
                         this.tipoToken = Tipo.SI;
                         break;
-                    case "SI_NO":
+                    case "SINO":
                         this.tipoToken = Tipo.SI_NO;
                         break;
-                    case "SINO_SI":
+                    case "SINOSI":
                         this.tipoToken = Tipo.SINOSI;
                         break;
                     case "MIENTRAS":

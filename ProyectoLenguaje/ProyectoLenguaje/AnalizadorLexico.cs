@@ -161,6 +161,8 @@ namespace ProyectoLenguaje
             }
             //Pintor pintor = new Pintor();
             //pintor.pintar(textBox,tokens);
+            AnalizadorSintactico analizador = new AnalizadorSintactico(tokens);
+            analizador.analizar(false);
             }
         public void pintar(RichTextBox textBox) {
            

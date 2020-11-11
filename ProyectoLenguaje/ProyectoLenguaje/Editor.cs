@@ -71,5 +71,9 @@ namespace ProyectoLenguaje
         private void erroresSintacticosToolStripMenuItem_Click(object sender, EventArgs e) {
             analizador.GetAnalizadorSintactico().mostrarErrores();
         }
+
+        private void Editor_Load(object sender, EventArgs e) {
+
+        }
     }
 }

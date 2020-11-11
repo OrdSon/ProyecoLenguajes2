@@ -165,7 +165,7 @@ namespace ProyectoLenguaje
                 case Tipo.TIPO_OBJETO:
                     return "tipo de objeto";                   
                 case Tipo.IDENTIFICADOR:
-                    this.color = Color.Cyan;
+                    this.color = Color.LightBlue;
                     return "identificador";
                 case Tipo.VALOR_ENTERO:
                     this.color = Color.MediumPurple;
@@ -207,28 +207,28 @@ namespace ProyectoLenguaje
                     this.color = Color.DarkBlue;
                     return "asignacion";
                 case Tipo.SI:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "SI";
                 case Tipo.SI_NO:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "SINO";
                 case Tipo.SINOSI:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "SINOSI";
                 case Tipo.MIENTRAS:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "MIENTRAS";
                 case Tipo.HACER:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "HACER";
                 case Tipo.DESDE:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "DESDE";
                 case Tipo.HASTA:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "HASTA";
                 case Tipo.INCREMENTO:
-                    this.color = Color.GreenYellow;
+                    this.color = Color.ForestGreen;
                     return "INCREMENTO";
                 case Tipo.FIN:
                     this.color = Color.Black;

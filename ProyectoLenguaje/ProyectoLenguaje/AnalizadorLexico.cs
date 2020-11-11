@@ -157,7 +157,9 @@ namespace ProyectoLenguaje
             
             Pintor pintor = new Pintor();
             pintor.pintar(textBox,tokens);
-            
+            if (errores.Count > 0) {
+                MessageBox.Show("Errores encontrados");
+            }
             analizador.analizar(false,tokens);
             tokens.Clear();
             }

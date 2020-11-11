@@ -135,7 +135,7 @@ namespace ProyectoLenguaje {
             {"SD3","valor boolean","SD1" },
             //OPERACIONES
             {"S6","identificador","SF1" },
-            {"SF1","asignacion","SF2" },
+            {"SF1","asignacion","SF3" },//HERE
             {"SF3","valor entero","SF4" },
             {"SF3","valor decimal","SF4" },
             {"SF3","valor cadena","SF5" },
@@ -153,7 +153,7 @@ namespace ProyectoLenguaje {
             {"SF7","valor entero","SF4" },
             {"SF7","valor chart","SF5" },
             {"SF7","valor cadena","SF5" },
-            {"SF7","valor identificador","SF6" },
+            {"SF7","identificador","SF6" },
 
             {"SF4","FIN","S5" },
             {"SF5","FIN","S5" },
@@ -207,7 +207,7 @@ namespace ProyectoLenguaje {
         }
         public Boolean EncontrarSiguiente(string tipo) {
 
-            for (int i = 0; i < 116; i++) {
+            for (int i = 0; i < 122; i++) {
 
                 string c1 = this.funcionDeTransicion[i, 0];
                 string c2 = this.funcionDeTransicion[i, 1];
@@ -275,23 +275,44 @@ namespace ProyectoLenguaje {
             String error = "";
             if (estadoActual.Equals("S6")) {
                 error = "Token inserperado";
-            }else if (estadoActual.Equals("S7") || estadoActual.Equals("S9")|| estadoActual.Equals("S36")) {
-                error = "Falta parentesis";
+            }else if (estadoActual.Equals("S7") || estadoActual.Equals("S9")|| estadoActual.Equals("S36") ||
+                estadoActual.Equals("S1")|| estadoActual.Equals("S2")|| estadoActual.Equals("S15") || estadoActual.Equals("S17")
+                || estadoActual.Equals("S31") || estadoActual.Equals("S33") || estadoActual.Equals("S38") || estadoActual.Equals("S39")) {
+                error = "Se esperaba parentesis";
             } else if (estadoActual.Equals("S3")) {
                 error = "Falta llave";
-            } else if (estadoActual.Equals("S10")|| estadoActual.Equals("38")|| estadoActual.Equals("SF4")|| estadoActual.Equals("SF5")|| estadoActual.Equals("S27")) {
-                error = "Falta operador";
-            } else if (estadoActual.Equals("S12")|| estadoActual.Equals("S8")) {
-                error = "Falta condicional";
-            } else if (estadoActual.Equals("S23")) {
-                error = "Falta asignacion";
+            } else if (estadoActual.Equals("S34")|| estadoActual.Equals("S41") || estadoActual.Equals("SF4")
+                || estadoActual.Equals("SF5") || estadoActual.Equals("SF6")) {
+                error = "Se esperaba ; ";
+            } else if (estadoActual.Equals("S10")|| estadoActual.Equals("S18")|| estadoActual.Equals("S27")|| estadoActual.Equals("S17")|| estadoActual.Equals("S9")) {
+                error = "Se esperaba operador";
+            } else if (estadoActual.Equals("S8")|| estadoActual.Equals("S12") || estadoActual.Equals("S16") || estadoActual.Equals("S20")) {
+                error = "Se esperaba condicional O valor";
+            } else if (estadoActual.Equals("S23") || estadoActual.Equals("S41") || estadoActual.Equals("SA1") || estadoActual.Equals("SB1")
+                || estadoActual.Equals("SC1") || estadoActual.Equals("SD1") || estadoActual.Equals("SF1")) {
+                error = "Se esperaba asignacion";
             } else if (estadoActual.Equals("S25") || estadoActual.Equals("S29")) {
-                error = "Falta palabra reservada";
-            } else if (estadoActual.Equals("S37")|| estadoActual.Equals("SF3")|| estadoActual.Equals("SF7")|| estadoActual.Equals("S24")) {
-                error = "falta valor";
+                error = "Se esperaba palabra reservada";
+            } else if (estadoActual.Equals("S37") || estadoActual.Equals("SF3") || estadoActual.Equals("SF7") || estadoActual.Equals("S24")) {
+                error = "Se esperaba valor";
+            } else if (estadoActual.Equals("S11") || estadoActual.Equals("S19") || estadoActual.Equals("S22") || estadoActual.Equals("S24")
+                || estadoActual.Equals("S26") || estadoActual.Equals("S28") || estadoActual.Equals("S32")
+                || estadoActual.Equals("S42") || estadoActual.Equals("S40") || estadoActual.Equals("SD2")
+                || estadoActual.Equals("SA2") || estadoActual.Equals("SA0") || estadoActual.Equals("SD0")
+                || estadoActual.Equals("SB2") || estadoActual.Equals("SB0") || estadoActual.Equals("SC0")
+                || estadoActual.Equals("SC2")) {
+
+                error = "Se esperaba identificador";
+            } else if(estadoActual.Equals("S13") || estadoActual.Equals("S14") || estadoActual.Equals("S3") || estadoActual.Equals("S4")) {
+                error = "Se esperaban llaves";
+            } else if (estadoActual.Equals("S25") || estadoActual.Equals("S28") || estadoActual.Equals("30") 
+                || estadoActual.Equals("S37")|| estadoActual.Equals("S43") || estadoActual.Equals("SA3")
+                || estadoActual.Equals("SB3") || estadoActual.Equals("SC3") || estadoActual.Equals("SD3")
+                || estadoActual.Equals("SF3") || estadoActual.Equals("SF7") ) {
+                error = "Se esperaba valor";
             } else {
-                error = "Error desconocido xD";
-            }MessageBox.Show(error);
+                error = "Error desconocido xD  ";
+            }MessageBox.Show(error +"   "+ estadoActual);
         }
        
     }

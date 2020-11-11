@@ -19,8 +19,8 @@ namespace ProyectoLenguaje
             textBox.AcceptsTab = true;
 
         }
-        
-   
+        AnalizadorLexico analizador = new AnalizadorLexico();
+
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace ProyectoLenguaje
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AnalizadorLexico analizador = new AnalizadorLexico();
+            
             analizador.analizar(textBox);
         }
 
@@ -65,8 +65,7 @@ namespace ProyectoLenguaje
 
         private void erroresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Error error = new Error();
-            error.Visible = true;
+            analizador.mostrarErrores();
         }
     }
 }

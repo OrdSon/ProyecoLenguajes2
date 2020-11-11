@@ -78,7 +78,7 @@ namespace ProyectoLenguaje
          * S6 = CADENA
          * S8 = IDENTIFICADOR
          */
-         
+
         /* L = Letra
          * E = Entero
          * P = Punto
@@ -87,7 +87,10 @@ namespace ProyectoLenguaje
          * C = Comillas
          * S = Simbolo
          */
-
+        AnalizadorSintactico analizador;
+        public AnalizadorLexico() {
+            this.analizador = new AnalizadorSintactico(tokens);
+        }
         public void analizar(RichTextBox textBox){
             char[] chars = textBox.Text.ToCharArray();
             int posicion = 0;
@@ -129,9 +132,10 @@ namespace ProyectoLenguaje
                                 tokens.AddLast(token);
                                 valor = "";
                                 estadoActual = "S0";
+                                tamañoTemporal = 0;
                                 j--;
                                 posicion--;
-                                tamañoTemporal = 0;
+                                
                                 regreso = true;
                             }else if (preToken.isSymbol()) {
                                 Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
@@ -165,11 +169,15 @@ namespace ProyectoLenguaje
             }
             Pintor pintor = new Pintor();
             pintor.pintar(textBox,tokens);
-            AnalizadorSintactico analizador = new AnalizadorSintactico(tokens);
+            
             analizador.analizar(false);
             }
-        public void pintar(RichTextBox textBox) {
-           
+        public void guardarToken(Token token, ref int tamañoTemporal) {
+            Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
+            tokens.AddLast(token);
+            valor = "";
+            estadoActual = "S0";
+            tamañoTemporal = 0;
         }
         public Boolean EncontrarSiguiente(string tipo) {
             
@@ -228,6 +236,17 @@ namespace ProyectoLenguaje
                 aceptacion = false;
             }
             
+        }
+        public void mostrarErrores() {
+            LinkedList<String> stringErrores = new LinkedList<string>();
+            for (int i = 0; i < errores.Count; i++) {
+                stringErrores.AddLast("Error: "
+                    +errores.ElementAt<Token>(i).getValor()+" En linea: "
+                    +errores.ElementAt<Token>(i).getLinea()+" En indice:"
+                    + errores.ElementAt<Token>(i).getPosicion());
+            }
+            Error error = new Error(stringErrores);
+            error.Visible = true;
         }
 
         

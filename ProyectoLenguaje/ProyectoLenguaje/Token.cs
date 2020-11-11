@@ -78,7 +78,9 @@ namespace ProyectoLenguaje
         public Color getColor() {
             return this.color;
         }
-
+        public int getLinea() {
+            return this.linea;
+        }
         public void revisarTipo() {
             Token.Tipo tipoActual = tipoToken;
             string valorActual = valor;

@@ -99,14 +99,14 @@
             // tipografiaToolStripMenuItem
             // 
             this.tipografiaToolStripMenuItem.Name = "tipografiaToolStripMenuItem";
-            this.tipografiaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tipografiaToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.tipografiaToolStripMenuItem.Text = "Tipografia";
             this.tipografiaToolStripMenuItem.Click += new System.EventHandler(this.tipografiaToolStripMenuItem_Click);
             // 
             // colorToolStripMenuItem
             // 
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.colorToolStripMenuItem.Text = "Color";
             this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
             // 
@@ -155,6 +155,7 @@
         "MIENTRAS(){ }",
         "HACER( ){ }",
         "DESDE",
+        "HASTA",
         "INCREMENTO",
         "imprimir( );",
         "leer( );",

@@ -67,5 +67,9 @@ namespace ProyectoLenguaje
         {
             analizador.mostrarErrores();
         }
+
+        private void erroresSintacticosToolStripMenuItem_Click(object sender, EventArgs e) {
+            analizador.GetAnalizadorSintactico().mostrarErrores();
+        }
     }
 }

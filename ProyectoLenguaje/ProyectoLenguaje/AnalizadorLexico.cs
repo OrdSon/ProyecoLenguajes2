@@ -87,11 +87,12 @@ namespace ProyectoLenguaje
          * C = Comillas
          * S = Simbolo
          */
-        AnalizadorSintactico analizador;
+        private AnalizadorSintactico analizador;
         public AnalizadorLexico() {
-            this.analizador = new AnalizadorSintactico(tokens);
+            this.analizador = new AnalizadorSintactico();
         }
         public void analizar(RichTextBox textBox){
+            analizador = new AnalizadorSintactico();
             char[] chars = textBox.Text.ToCharArray();
             int posicion = 0;
             int tamañoTemporal = 0;
@@ -119,40 +120,32 @@ namespace ProyectoLenguaje
                             tamañoTemporal++;
                             if (j == linea.Length-1 && aceptacion) {
                                 Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
-                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i);
-                                tokens.AddLast(token);
-                                valor = "";
-                                estadoActual = "S0";
-                                tamañoTemporal = 0;
+                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i+1);
+                                guardarToken(token,ref tamañoTemporal);
                             }
                         } else {
                             if (aceptacion) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN" +tamañoTemporal);
-                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i);
-                                tokens.AddLast(token);
-                                valor = "";
-                                estadoActual = "S0";
-                                tamañoTemporal = 0;
+                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i+1);
+                                guardarToken(token,ref tamañoTemporal);
                                 j--;
                                 posicion--;
                                 
                                 regreso = true;
                             }else if (preToken.isSymbol()) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
-                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length,i);
-                                tokens.AddLast(token);
-                                valor = "";
-                                estadoActual = "S0";
-                                tamañoTemporal = 0;
+                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length,i+1);
+                                guardarToken(token, ref tamañoTemporal);
+                                
                                     
                             } else {
-                                valor += temporal;
-                                Console.WriteLine("Si llegue a GUARDAR ERROR" );
-                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length,i);
-                                errores.AddLast(token);
-                                valor = "";
-                                estadoActual = "S0";
-                                tamañoTemporal = 0;
+                                if (temporal != (char)32 && temporal != (char)9) {
+                                    valor += temporal;
+                                    Console.WriteLine("Si llegue a GUARDAR ERROR");
+                                    Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length, i+1);
+                                    errores.AddLast(token);
+                                    valor = "";
+                                    estadoActual = "S0";
+                                    tamañoTemporal = 0;
+                                }
                             }
                         }
                     }
@@ -160,17 +153,13 @@ namespace ProyectoLenguaje
                 }
                 posicion++;
             }
-            Console.WriteLine("finish");
-            for (int i = 0; i < tokens.Count; i++) {
-                tokens.ElementAt<Token>(i).revisarTipo();
-                Console.WriteLine("Token:" + tokens.ElementAt<Token>(i).getValor()+" Tipo: "+
-                    tokens.ElementAt<Token>(i).getTipo() +   "  Posicion: "+tokens.ElementAt<Token>(i).getPosicion()+
-                    "  Size: " + tokens.ElementAt<Token>(i).getSize());
-            }
+            imprimirTokens();
+            
             Pintor pintor = new Pintor();
             pintor.pintar(textBox,tokens);
             
-            analizador.analizar(false);
+            analizador.analizar(false,tokens);
+            tokens.Clear();
             }
         public void guardarToken(Token token, ref int tamañoTemporal) {
             Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
@@ -178,6 +167,14 @@ namespace ProyectoLenguaje
             valor = "";
             estadoActual = "S0";
             tamañoTemporal = 0;
+        }
+        public void imprimirTokens() {
+            for (int i = 0; i < tokens.Count; i++) {
+                tokens.ElementAt<Token>(i).revisarTipo();
+                Console.WriteLine("Token:" + tokens.ElementAt<Token>(i).getValor() + " Tipo: " +
+                    tokens.ElementAt<Token>(i).getTipo() + "  Posicion: " + tokens.ElementAt<Token>(i).getPosicion() +
+                    "  Size: " + tokens.ElementAt<Token>(i).getSize());
+            }
         }
         public Boolean EncontrarSiguiente(string tipo) {
             
@@ -245,10 +242,14 @@ namespace ProyectoLenguaje
                     +errores.ElementAt<Token>(i).getLinea()+" En indice:"
                     + errores.ElementAt<Token>(i).getPosicion());
             }
+            stringErrores.AddFirst("ERRORES LEXICOS:");
             Error error = new Error(stringErrores);
             error.Visible = true;
         }
+        public AnalizadorSintactico GetAnalizadorSintactico() {
+            return this.analizador;
+        }
 
-        
+
     }
 }

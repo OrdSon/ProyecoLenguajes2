@@ -42,6 +42,7 @@
             this.fuentes = new System.Windows.Forms.FontDialog();
             this.colores = new System.Windows.Forms.ColorDialog();
             this.autocompleteMenu1 = new AutocompleteMenuNS.AutocompleteMenu();
+            this.erroresSintacticosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,8 @@
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.abrirToolStripMenuItem,
             this.guardarToolStripMenuItem,
-            this.erroresToolStripMenuItem});
+            this.erroresToolStripMenuItem,
+            this.erroresSintacticosToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
@@ -84,7 +86,7 @@
             // 
             this.erroresToolStripMenuItem.Name = "erroresToolStripMenuItem";
             this.erroresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.erroresToolStripMenuItem.Text = "Errores";
+            this.erroresToolStripMenuItem.Text = "Errores lexicos";
             this.erroresToolStripMenuItem.Click += new System.EventHandler(this.erroresToolStripMenuItem_Click);
             // 
             // fuenteToolStripMenuItem
@@ -162,6 +164,13 @@
         "escribir( );"};
             this.autocompleteMenu1.TargetControlWrapper = null;
             // 
+            // erroresSintacticosToolStripMenuItem
+            // 
+            this.erroresSintacticosToolStripMenuItem.Name = "erroresSintacticosToolStripMenuItem";
+            this.erroresSintacticosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.erroresSintacticosToolStripMenuItem.Text = "Errores Sintacticos";
+            this.erroresSintacticosToolStripMenuItem.Click += new System.EventHandler(this.erroresSintacticosToolStripMenuItem_Click);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +204,7 @@
         private System.Windows.Forms.ColorDialog colores;
         private System.Windows.Forms.ToolStripMenuItem erroresToolStripMenuItem;
         private AutocompleteMenuNS.AutocompleteMenu autocompleteMenu1;
+        private System.Windows.Forms.ToolStripMenuItem erroresSintacticosToolStripMenuItem;
     }
 }
 

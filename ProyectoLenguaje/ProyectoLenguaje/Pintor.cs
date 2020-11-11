@@ -12,6 +12,9 @@ namespace ProyectoLenguaje {
             for (int i = 0; i<tokens.Count;i++) {
                 int posicion = tokens.ElementAt<Token>(i).getPosicion();
                 int size = tokens.ElementAt<Token>(i).getSize();
+                if (posicion < 0) {
+                    posicion = 0;
+                }
                 textBox.Select(posicion, size);
                 textBox.SelectionColor = tokens.ElementAt<Token>(i).getColor();
             }

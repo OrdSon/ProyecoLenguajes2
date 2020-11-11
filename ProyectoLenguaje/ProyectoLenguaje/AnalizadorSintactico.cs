@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProyectoLenguaje {
-    class AnalizadorSintactico {
+     public class AnalizadorSintactico {
         string[,] funcionDeTransicion = {
             { "S0", "Principal", "S1"},//Reconoce principal
             { "S1","parentesis apertura","S2"},
@@ -160,6 +160,7 @@ namespace ProyectoLenguaje {
             {"SF6","FIN","S5" },
 
         };
+        LinkedList<string> errores = new LinkedList<string>();
         //Blue wednesday -introvert
         string estadosDeAceptacion = "S5";
         LinkedList<Token> tokens = new LinkedList<Token>();
@@ -168,13 +169,15 @@ namespace ProyectoLenguaje {
         string estadoActual = "S0";
         string valorActual;
         Boolean aceptacion;
+        AnalizadorSintactico analizador;
 
-        public AnalizadorSintactico(LinkedList<Token> tokens) {
-            this.tokens = tokens;
+        public AnalizadorSintactico() {
+            
         }
         
-        public void analizar(Boolean reAnalisis) {
-
+        public void analizar(Boolean reAnalisis, LinkedList<Token> tokens) {
+            this.tokens = tokens;
+            errores.Clear();
             if (reAnalisis) {
                 estadoActual = estadoSubInicial;
             } else {
@@ -189,21 +192,21 @@ namespace ProyectoLenguaje {
                         estadoActual = "S6";
                         j--;
                     } else {
-                        mostrarErrores();
+                        guardarErrores();
                         break;
                     }
                 }else if(valorActual.Equals("llave apertura")) {
                     LinkedList<Token> temporal = buscarLlaves(j);
                     if(temporal != null) {
-                        AnalizadorSintactico analizador = new AnalizadorSintactico(temporal);
-                        analizador.analizar(true);
+                        this.analizador = new AnalizadorSintactico();
+                        this.analizador.analizar(true, temporal);
                         j += temporal.Count;
                     } else {
                         Console.WriteLine("VACIA");
                     }
                 }
             }
-
+            estadoActual = estadoInicial;
         }
         public Boolean EncontrarSiguiente(string tipo) {
 
@@ -271,7 +274,7 @@ namespace ProyectoLenguaje {
             }
            
         }
-        public void mostrarErrores() {
+        public void guardarErrores() {
             String error = "";
             if (estadoActual.Equals("S6")) {
                 error = "Token inserperado";
@@ -312,9 +315,55 @@ namespace ProyectoLenguaje {
                 error = "Se esperaba valor";
             } else {
                 error = "Error desconocido xD  ";
-            }MessageBox.Show(error +"   "+ estadoActual);
+            }errores.AddLast(error + "   " + estadoActual);
         }
        
+        public LinkedList<string> getErrores() {
+            return this.errores;            
+        }
+        Boolean sinErrores = false;
+
+        public LinkedList<string> encontrarErrores() {
+            if (analizador == null) {
+                return errores;
+            }
+            LinkedList<string> temporal = analizador.sumarErrores(); 
+            for (int i = 0; i < temporal.Count; i++) {
+                errores.AddLast(temporal.ElementAt<string>(i));
+            }
+            return errores;
+            
+        }
+        public LinkedList<string> sumarErrores() {
+            
+            if (analizador == null) {
+                return errores;
+            }
+            LinkedList<string> temporal = analizador.getErrores();
+            for (int i = 0; i< temporal.Count; i++) {
+                errores.AddLast(temporal.ElementAt<string>(i));
+            }
+            return errores;
+        }
+
+        public void mostrarErrores() {
+            if (errores.Count > 0) {
+                Error error = new Error(errores);
+                error.Visible = true;
+                return;
+            }
+            if(analizador == null) {
+                MessageBox.Show("GRAMATICA ACEPTADA :D");
+                return;
+            }
+            LinkedList<string> temporal = analizador.encontrarErrores();
+            if (temporal.Count == 0) {
+                MessageBox.Show("GRAMATICA ACEPTADA :D");
+            } else {
+                Error error = new Error(temporal);
+                error.Visible = true;
+            }
+        }
     }
     
 }

@@ -39,7 +39,8 @@ namespace ProyectoLenguaje {
             { "S10","operador relacional","S11"},
             { "S11","identificador","S9"},
             { "S8","Negacion","S12"},
-            { "S12","Boolean","S9"},
+            { "S12","verdadero","S9"},
+            { "S12","falso","S9"},
             { "S12","valor boolean","S9"},
             { "S9","parentesis cierre","S13"},
             //resto
@@ -250,10 +251,6 @@ namespace ProyectoLenguaje {
                 if (llaves == 0) {
                     cuenta = i;
                     break;
-                }else if (llaves > 0) {
-                    MessageBox.Show("Error, llave sin cerrar");
-                } else if (llaves < 0) {
-                    MessageBox.Show("Error, llave sin cerrar");
                 }
 
             }
@@ -262,6 +259,12 @@ namespace ProyectoLenguaje {
             }
 
             if(temporal.Count == 0) {
+                return null;
+            } else if (llaves > 0) {
+                MessageBox.Show("Error, llave sin cerrar");
+                return null;
+            } else if (llaves < 0) {
+                MessageBox.Show("Error, llave sin cerrar");
                 return null;
             } else {
                 return temporal;

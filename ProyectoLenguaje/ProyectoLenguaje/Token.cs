@@ -55,14 +55,16 @@ namespace ProyectoLenguaje
         private String valor;
         int size;
         int posicion;
+        int linea;
         Color color;
-        public Token(Tipo tipoToken, String valor, int size, int posicion)
+        public Token(Tipo tipoToken, String valor, int size, int posicion, int linea)
         {
             this.tipoToken = tipoToken;
             this.valor = valor;
             this.size = size;
             this.posicion = posicion;
-            Console.WriteLine("guardado");
+            this.linea = linea;
+            
         }
         public Token() {
             

@@ -104,7 +104,9 @@ namespace ProyectoLenguaje
                     preToken preToken = new preToken();
                     preToken.setValue(linea[j]);
                     char temporal = linea[j];
-                    Console.WriteLine(temporal);
+                    Console.WriteLine(temporal+"");
+                    Console.WriteLine(posicion + "");
+                    
                     if (preToken.setTipo(temporal) == false && !preToken.isSymbol()) {
 
                     }
@@ -113,16 +115,17 @@ namespace ProyectoLenguaje
                             valor += temporal;
                             tamañoTemporal++;
                             if (j == linea.Length-1 && aceptacion) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN");
-                                Token token = new Token(tipo, valor, tamañoTemporal, posicion-tamañoTemporal);
+                                Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
+                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i);
                                 tokens.AddLast(token);
                                 valor = "";
                                 estadoActual = "S0";
+                                tamañoTemporal = 0;
                             }
                         } else {
                             if (aceptacion) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN");
-                                Token token = new Token(tipo, valor, tamañoTemporal, posicion - tamañoTemporal);
+                                Console.WriteLine("Si llegue a GUARDAR TOKEN" +tamañoTemporal);
+                                Token token = new Token(tipo, valor, valor.Length, posicion - valor.Length,i);
                                 tokens.AddLast(token);
                                 valor = "";
                                 estadoActual = "S0";
@@ -131,26 +134,27 @@ namespace ProyectoLenguaje
                                 tamañoTemporal = 0;
                                 regreso = true;
                             }else if (preToken.isSymbol()) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN");
-                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - tamañoTemporal);
+                                Console.WriteLine("Si llegue a GUARDAR TOKEN" + tamañoTemporal);
+                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length,i);
                                 tokens.AddLast(token);
                                 valor = "";
                                 estadoActual = "S0";
                                 tamañoTemporal = 0;
-
-                            }/*
-                            if (regreso && preToken.isSymbol()) {
-                                Console.WriteLine("Si llegue a GUARDAR TOKEN");
-                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - tamañoTemporal);
-                                tokens.AddLast(token);
+                                    
+                            } else {
+                                valor += temporal;
+                                Console.WriteLine("Si llegue a GUARDAR ERROR" );
+                                Token token = new Token(preToken.GetTipo(), temporal + "", 1, posicion - valor.Length,i);
+                                errores.AddLast(token);
                                 valor = "";
                                 estadoActual = "S0";
-                                regreso = false;
-                            }*/
+                                tamañoTemporal = 0;
+                            }
                         }
                     }
                     posicion++;
                 }
+                posicion++;
             }
             Console.WriteLine("finish");
             for (int i = 0; i < tokens.Count; i++) {
@@ -159,8 +163,8 @@ namespace ProyectoLenguaje
                     tokens.ElementAt<Token>(i).getTipo() +   "  Posicion: "+tokens.ElementAt<Token>(i).getPosicion()+
                     "  Size: " + tokens.ElementAt<Token>(i).getSize());
             }
-            //Pintor pintor = new Pintor();
-            //pintor.pintar(textBox,tokens);
+            Pintor pintor = new Pintor();
+            pintor.pintar(textBox,tokens);
             AnalizadorSintactico analizador = new AnalizadorSintactico(tokens);
             analizador.analizar(false);
             }
